@@ -1,0 +1,24 @@
+{
+  "name": "my-api",
+  "version": "1.0.0",
+  "description": "Simple Node.js API with hello-world and hostname endpoints",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "docker:build": "docker build -t my-api:latest .",
+    "docker:run": "docker run -p 3000:3000 my-api:latest"
+  },
+  "keywords": ["api", "express", "kubernetes"],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
