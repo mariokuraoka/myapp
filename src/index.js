@@ -10,7 +10,7 @@ app.use(express.json());
 
 // Health check endpoint for Kubernetes probes
 app.get('/', (req, res) => {
-  res.json({ version: '1.0.2' });
+  res.json({ version: '1.0.3' });
 });
 
 // Health check endpoint for Kubernetes probes

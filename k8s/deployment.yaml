@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: my-api
-        image: kuraoka/myapp:latest
+        image: kuraoka/myapp:v1.0.3
         ports:
         - containerPort: 3000
         env:
