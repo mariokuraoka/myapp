@@ -9,6 +9,11 @@ const HOST = process.env.HOST || '0.0.0.0';
 app.use(express.json());
 
 // Health check endpoint for Kubernetes probes
+app.get('/', (req, res) => {
+  res.json({ version: '1.0.1' });
+});
+
+// Health check endpoint for Kubernetes probes
 app.get('/health', (req, res) => {
   res.json({ status: 'healthy' });
 });
