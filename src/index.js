@@ -23,6 +23,24 @@ app.get('/hostname', (req, res) => {
   res.json({ hostname: os.hostname() });
 });
 
+// Shutdown endpoint
+app.post('/shutdown', (req, res) => {
+  console.log('Shutdown requested...');
+  res.json({ message: 'Server is shutting down...' });
+  
+  // Close the server gracefully
+  server.close(() => {
+    console.log('Server closed. Exiting process...');
+    process.exit(0);
+  });
+  
+  // Force shutdown after 10 seconds if graceful shutdown fails
+  setTimeout(() => {
+    console.error('Forced shutdown after timeout');
+    process.exit(1);
+  }, 10000);
+});
+
 // 404 handler
 app.use((req, res) => {
   res.status(404).json({ error: 'Not Found' });
