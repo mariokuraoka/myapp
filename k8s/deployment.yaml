@@ -5,7 +5,7 @@ metadata:
   labels:
     app: my-api
 spec:
-  replicas: 2  # Minimum 2 for HA
+  replicas: 2
   selector:
     matchLabels:
       app: my-api
@@ -16,15 +16,12 @@ spec:
     spec:
       containers:
       - name: my-api
-        image: kuraoka/myapp:latest
+        image: kuraoka/myapp:v1.0.0
         ports:
         - containerPort: 3000
         env:
-        - name: PORT
-          value: "3000"
-        - name: NODE_ENV
+        - name: ENV
           value: "production"
-        # Resource limits (always set these!)
         resources:
           requests:
             memory: "128Mi"
@@ -32,16 +29,15 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "200m"
-        # Liveness and readiness probes
         livenessProbe:
           httpGet:
-            path: /health
+            path: /
             port: 3000
-          initialDelaySeconds: 10
+          initialDelaySeconds: 30
           periodSeconds: 10
         readinessProbe:
           httpGet:
-            path: /health
+            path: /
             port: 3000
           initialDelaySeconds: 5
           periodSeconds: 5
