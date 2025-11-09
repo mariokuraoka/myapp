@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-api
+  namespace: argocd
+spec:
+  project: default
+  
+  source:
+    repoURL: https://github.com/mariokuraoka/myapp.git
+    targetRevision: master
+    path: k8s
+  
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  
+  syncPolicy:
+    automated:                    # Enable auto-sync
+      prune: true                 # Auto-delete resources removed from git
+      selfHeal: true              # Auto-sync when cluster state drifts
+      allowEmpty: false           # Don't sync if repo is empty
+    syncOptions:
+      - CreateNamespace=true      # Auto-create namespace if missing
+    retry:                        # Retry failed syncs
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
